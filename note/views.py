@@ -384,4 +384,3 @@ def passCheck(request):
         return redirect('/login/')
     return render(request, 'paasCheck.html')
 
-#hellooooo
