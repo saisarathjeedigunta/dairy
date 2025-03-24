@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -77,11 +79,11 @@ WSGI_APPLICATION = 'dairy.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django',
-        'USER': 'root',
-        'PASSWORD': 'padmasiri1',
-        'HOST': '127.0.0.1',
-        'PORT': '3306', 
+        'NAME': os.getenv('n'),
+        'USER': os.getenv('us'),
+        'PASSWORD': os.getenv('pass'),
+        'HOST': os.getenv('ho'),
+        'PORT': os.getenv('po'), 
     }
 }
 
@@ -142,5 +144,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'gfg28057@gmail.com'
-EMAIL_HOST_PASSWORD = 'ektrurlwctykbaxs' 
+EMAIL_HOST_USER = os.getenv('eu')
+EMAIL_HOST_PASSWORD = os.getenv('ep')
