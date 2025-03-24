@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diary Home</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f4f8; /* Light background */
+            color: #4a4a4a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* Center vertically */
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+        .navbar {
+            width: 100%;
+            background-color: #42a5f5; /* Primary blue color */
+            color: white;
+            padding: 10px 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000; /* Ensure it stays above other content */
+        }
+        .navbar-brand, .nav-link {
+            color: white !important;
+        }
+        .container {
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+            background: rgba(255, 255, 255, 0.9); /* White background with slight transparency */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 100%; /* Full width */
+            max-width: 1000px; /* Max width to prevent it from becoming too large */
+            min-height: calc(100vh - 70px); /* Ensure container height fits the viewport minus navbar height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center content vertically */
+            margin: 0 auto; /* Center horizontally */
+            box-sizing: border-box; /* Include padding in width calculation */
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Space between buttons */
+            flex-wrap: wrap; /* Ensure buttons wrap on smaller screens */
+        }
+        .btn-option {
+            background-color: #90caf9; /* Light blue */
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            color: white;
+            min-width: 200px; /* Minimum width to ensure buttons are large enough */
+        }
+        .btn-option:hover {
+            background-color: #1e88e5; /* Darker blue on hover */
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        .btn-option:active {
+            transform: scale(1.03);
+        }
+        h1 {
+            color: #1a237e; /* Dark blue for title */
+            animation: fadeZoomIn 1s ease-in-out;
+        }
+        hr {
+            border-color: #42a5f5; /* Match the primary blue */
+        }
+        @keyframes fadeZoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" style="font-size: 0.85rem;">Greetings, Diary Keeper @{{user}}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout/">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <h1 class="my-4">Hello, Little Book of Dreams🎐🫧🦋🧿💠🌀</h1>
+        <hr>
+        <div class="button-container">
+            <form method="post" action="/descriptivedairy/">
+                {% csrf_token %}
+                <button class="btn btn-option" type="submit">Magic Pages Diary</button>
+            </form>
+            <form method="post" action="/photodiary/">
+                {% csrf_token %}
+                <button class="btn btn-option" type="submit">Snapshot Storybook</button>
+            </form>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

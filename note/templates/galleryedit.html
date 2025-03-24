@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Diary Entry</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #6A85B1;
+            margin-bottom: 1rem;
+        }
+
+        .upload-container {
+            background-color: #FFFFFF;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .upload-container:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .title-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .upload-label {
+            display: inline-block;
+            background-color: #FFC0CB;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .upload-label:hover {
+            background-color: #FFA07A;
+        }
+
+        .preview-container {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .preview-image {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .preview-image:hover {
+            transform: scale(1.1);
+        }
+
+        .upload-button {
+            margin-top: 20px;
+            background-color: #77DD77;
+            color: white;
+            padding: 10px 30px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .upload-button:hover {
+            background-color: #66CDAA;
+        }
+        .navbar {
+            background-color: rgba(66, 165, 245, 0.8); /* Semi-transparent blue */
+            color: white;
+            padding: 15px 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center; /* Align items vertically */
+            justify-content: space-between; /* Space items evenly */
+            transition: background-color 0.3s;
+        }
+
+        .navbar-brand {
+            font-size: 0.85rem;
+        }
+
+        .nav-link {
+            color: white !important;
+            margin-right: 30px; /* Space between logout button and right edge */
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #FFC0CB; /* Color change on hover */
+        }
+
+        .navbar:hover {
+            background-color: rgba(66, 165, 245, 1); /* Darker blue on hover */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" style="font-size: 0.85rem;">Greetings, Diary Keeper @{{user}}</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout/">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <h1>Glam Up Your Photo Note</h1>
+    {% if messages %}
+            <div class="alert alert-primary" role="alert">
+                {% for message in messages %}
+                {{ message }}
+                {% endfor %}
+            </div>
+            {% endif %}
+    <form action="/updatephoto/{{ title }}" class="upload-container" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="Pick a sweet and enchanting title to record your memory" class="title-input" value="{{ title }}" required>
+        <label class="upload-label" for="file-input">Pick Your Picture Beauties</label>
+        <input id="file-input" class="file-input" type="file" name="photos" multiple accept="image/*">
+        <div class="preview-container" id="preview-container"></div>
+        <button type="submit" class="upload-button">Update Your Picture Delights</button>
+    </form>
+    
+    <script>
+        const fileInput = document.getElementById('file-input');
+        const previewContainer = document.getElementById('preview-container');
+
+        fileInput.addEventListener('change', function() {
+            previewContainer.innerHTML = '';
+
+            const files = this.files;
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'preview-image';
+                    img.alt = 'Image preview'; // Accessibility improvement
+                    previewContainer.appendChild(img);
+                }
+
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+
+</body>
+</html>

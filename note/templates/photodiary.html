@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Diary</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f4f8; /* Light background */
+            color: #4a4a4a;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            overflow-x: hidden; /* Prevent horizontal scrollbar */
+        }
+        .navbar {
+            background-color: #42a5f5; /* Primary blue color */
+            color: white;
+            padding: 10px 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        .navbar-brand, .nav-link {
+            color: white !important;
+        }
+        .welcome-section {
+            text-align: center;
+            margin: 80px 0 40px; /* Adjusted for fixed navbar */
+        }
+        .welcome-section h2 {
+            color: #1a237e; /* Dark blue */
+            margin-bottom: 20px;
+            font-size: 2em;
+            animation: fadeIn 1s ease-in-out;
+        }
+        .welcome-section p {
+            font-size: 1.2em;
+            color: #4a4a4a;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .btn-action {
+            background-color: #90caf9; /* Light blue */
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            margin: 10px 0;
+            border-radius: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            color: white;
+        }
+        .btn-action:hover {
+            background-color: #1e88e5; /* Darker blue on hover */
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        .btn-action:active {
+            transform: scale(1.03);
+        }
+        .feature-card {
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%; /* Ensure all cards are the same height */
+        }
+        .feature-card img {
+            border-radius: 10px 10px 0 0;
+            width: 100%;
+            height: 200px; /* Set fixed height for images */
+            object-fit: cover; /* Ensure image covers the area */
+        }
+        .feature-card .card-body {
+            padding: 20px;
+            flex: 1; /* Allow body to grow and fill available space */
+        }
+        .feature-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" style="font-size: 0.85rem;">Greetings, Diary Keeper @{{user}}</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout/">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="main-content" id="mainContent">
+        <div class="welcome-section">
+            <h2>Step Into Your Storybook⋆⭒˚.⋆🪐 ⋆⭒˚.⋆</h2>
+            <p>Your Little Memory Keeper!🫶🏻🥹❤️‍🩹</p>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="card feature-card">
+                            <img src="https://picsum.photos/600/400?random=1" alt="Add Diary Entry">
+                            <div class="card-body">
+                                <h5 class="card-title">Create a Sparkling Note ˖°🌊🎐𓇼⋆🦪₊</h5>
+                                <p class="card-text">Delightfully jot down your thoughts and keep them beautiful.</p>
+                                <button type="submit" class="btn btn-action" name="action" value="add">Add Photo Note</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="card feature-card">
+                            <img src="https://picsum.photos/600/400?random=4" alt="Show Diaries">
+                            <div class="card-body">
+                                <h5 class="card-title">Peek into Your Precious Diaries🐻☕🧸📋🧋🍪</h5>
+                                <p class="card-text">See all your special moments gathered just for you!</p>
+                                <button type="submit" class="btn btn-action" name="action" value="show">Show Photo Note</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

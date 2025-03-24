@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magical Diary Entry</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f4f8; /* Light background */
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding-top: 60px; /* Space for navbar */
+        }
+        .navbar {
+            background-color: #42a5f5; /* Primary blue color */
+            color: white;
+            padding: 10px 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        .navbar-brand, .nav-link {
+            color: white !important;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            animation: fadeIn 0.8s ease-in-out;
+            position: relative;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .header h2 {
+            color: #1a237e; /* Dark blue */
+            margin-bottom: 10px;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        .header .date-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin-top: 10px;
+        }
+        .date-box {
+            background-color: #1e88e5; /* Blue background */
+            border-radius: 6px;
+            padding: 4px 8px;
+            color: #ffffff; /* White text */
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .date-box .emoji {
+            margin-left: 4px;
+            font-size: 1rem;
+        }
+        .form-group label {
+            font-weight: bold;
+            color: #1a237e;
+        }
+        .form-control {
+            border: none;
+            border-bottom: 2px solid #90caf9; /* Light blue border */
+            padding: 10px;
+            font-size: 16px;
+            background-color: #f0f4f8; /* Light background */
+            border-radius: 0;
+        }
+        .form-control:focus {
+            border-bottom-color: #1e88e5; /* Darker blue focus */
+            box-shadow: none;
+        }
+        .btn-primary {
+            background-color: #42a5f5; /* Primary blue button */
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            transition: background-color 0.3s, transform 0.3s;
+            color: white;
+            margin-top: 20px;
+            width: 100%;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(66, 165, 245, 0.3);
+        }
+        .btn-primary:hover {
+            background-color: #1e88e5; /* Darker blue on hover */
+            transform: scale(1.02);
+            box-shadow: 0 6px 14px rgba(30, 136, 229, 0.4);
+        }
+        .entry-container {
+            background-color: #ffffff; /* White background for container */
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+        .entry-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" style="font-size: 0.85rem;">Greetings, Diary Keeper @{{user}}</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout/">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="header">
+            <h2>It's Diary Time!!✩°𓏲⋆🌿. ⋆⸜ 🍵✮˚</h2>
+            {% if messages %}
+            <div class="alert alert-primary" role="alert">
+                {% for message in messages %}
+                {{ message }}
+                {% endfor %}
+            </div>
+            {% endif %}
+            <div class="date-container">
+                <div class="date-box">
+                    {{ current_date }}<span class="emoji">📆</span>
+                </div>
+            </div>
+        </div>
+        <div class="entry-container">
+            <form method="POST" >
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="entryTitle">Title</label>
+                    <input type="text" class="form-control" id="entryTitle" name="title" placeholder="Pick a sweet and enchanting title to record your memory" required>
+                </div>
+                <div class="form-group">
+                    <label for="entryDescription">Description</label>
+                    <textarea class="form-control" id="entryDescription" name="description" rows="10" placeholder="Pen down your magical tale here..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Store It Safe!!</button>
+            </form>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- {% if redirect %}
+        <script>
+            setTimeout(function(){
+                window.location.href = '/showdairy/';
+            }, 1500);  // 5000ms = 5 seconds
+        </script>
+    {% endif %} -->
+    
+
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Diary Entry</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f4f8; /* Light background */
+            color: #4a4a4a;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            overflow-x: hidden; /* Prevent horizontal scrollbar */
+        }
+        .navbar {
+            background-color: #42a5f5; /* Primary blue color */
+            color: white;
+            padding: 10px 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        .navbar-brand, .nav-link {
+            color: white !important;
+        }
+        .container {
+            margin-top: 80px; /* Adjusted for fixed navbar */
+        }
+        .update-section {
+            background: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px); /* Blur effect for background */
+            margin: 0 auto;
+            max-width: 600px; /* Centered and constrained width */
+        }
+        .update-section h2 {
+            color: #1a237e; /* Dark blue */
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+        .form-control {
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+        .form-control:focus {
+            box-shadow: 0 0 0 2px #42a5f5;
+            border-color: #42a5f5;
+            outline: none;
+        }
+        .btn-action {
+            background-color: #90caf9; /* Light blue */
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            margin: 10px 0;
+            border-radius: 30px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            color: white;
+        }
+        .btn-action:hover {
+            background-color: #1e88e5; /* Darker blue on hover */
+            transform: scale(1.05);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+        .btn-action:active {
+            transform: scale(1.03);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" style="font-size: 0.85rem;">Greetings, Diary Keeper @{{user}}</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout/">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="update-section">
+            <h2>Edit Your Heart's Journey𓆝 𓆟 𓆞 𓆝 𓇼</h2>
+            <form action="/updateddairy/{{ dairy.id }}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" value="{{ dairy.title }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="6" required>{{ dairy.descriptive }}</textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-action">Spruce Up Your Note</button>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
